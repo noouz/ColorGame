@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./css/style.css">
+    <title>Color Game</title>
+</head>
+
+<body>
+    <div class="score">
+        得分：
+        <span>0</span>
+    </div>
+    <div class="container">
+
+    </div>
+
+    <script>
+        let container = document.querySelector('.container');
+        
+
+        //先製作4x4方塊
+        let level = 2;
+        for (let i = 0; i < level * level; i++) {
+            container.innerHTML = container.innerHTML + `<div class="box"></div>`;
+        }
+        let boxAll = document.querySelectorAll('.box');
+
+        //產生亂數，最大到3
+        let num = Math.random();
+        num = Math.floor(num * 3) + 1;
+        let random = num;
+
+        // 把答案的css加入亂數的box中
+        boxAll[random].classList.add('answer');
+
+
+        //找尋答案方塊
+        let answer = document.querySelector('.answer');
+
+        function randomGame(color, opacity) {
+            container.innerHTML = '';
+
+            for (let i = 0; i < level * level; i++) {
+                container.innerHTML += `<div class="box"></div>`
+            }
+
+            boxAll = document.querySelectorAll('.box');
+
+            //調整方塊寬高
+            for (let i = 0; i < level * level; i++) {
+                boxAll[i].style.width = 100 / level + '%';
+                boxAll[i].style.height = 100 / level + '%';
+                boxAll[i].classList.add(color);
+            }
+
+            //重新計算現在level的所需最大亂數 level的平方=全部方塊數
+            let num = Math.random();
+            num = Math.floor(num * (level * level));
+            let random = num;
+
+            //重新加入answer方塊
+            boxAll[random].classList.add(opacity);
+            level += 1;
+
+            //
+            
+
+            //回傳新的level
+            return level;
+        }
+
+        function score() {
+            let scoreText = document.querySelector('.score span');
+            let score = Number(scoreText.innerText);
+
+            score += 1;
+            console.log(`我是score${score}`);
+            scoreText.innerText = score;
+        }
+
+
+
+        //第二關3x3
+        answer.addEventListener('click', function () {
+            alert('恭喜過關');
+            score();
+            randomGame('second', 'answer-2');
+
+            level = randomGame('second', 'answer-2') - 1;
+            let answer = document.querySelector('.answer-2');
+            
+
+
+
+            //第三關4x4
+            answer.addEventListener('click', function () {
+                alert('恭喜過關');
+                score();
+                randomGame('third', 'answer-3');
+
+                level = randomGame('third', 'answer-3') - 1;
+                let answer = document.querySelector('.answer-3');
+
+                //第五關5x5
+                answer.addEventListener('click', function () {
+                    alert('恭喜過關');
+                    score();
+                    randomGame('fourth', 'answer-4');
+
+                    level = randomGame('fourth', 'answer-4') - 1;
+                    let answer = document.querySelector('.answer-4');
+
+                    answer.addEventListener('click', function () {
+                        alert('恭喜過關');
+                        score();
+                        randomGame('fifth', 'answer-5');
+
+                        level = randomGame('fifth', 'answer-5') - 1;
+                        let answer = document.querySelector('.answer-5');
+
+                        answer.addEventListener('click', function () {
+                            alert("沒有ㄌ");
+                        })
+                    })
+
+                })
+            })
+        })
+
+    </script>
+</body>
+
+</html>
