@@ -10,6 +10,7 @@ body {
   display: flex;
   justify-content: space-evenly;
   align-items: center;
+  color: rgb(70, 58, 58);
 }
 
 .score {
@@ -20,8 +21,8 @@ body {
 }
 
 .container {
-  width: 520px;
-  height: 520px;
+  width: 550px;
+  height: 550px;
   background-color: #E7E1D9;
   padding: 10px;
   display: flex;
@@ -36,40 +37,4 @@ body {
   background-color: #B6A741;
   border-radius: 10px;
   border: 5px solid #E7E1D9;
-}
-
-.answer {
-  opacity: 0.5;
-}
-
-.answer-2 {
-  opacity: 0.65;
-}
-
-.answer-3 {
-  opacity: 0.75;
-}
-
-.answer-4 {
-  opacity: 0.85;
-}
-
-.answer-5 {
-  opacity: 0.9;
-}
-
-.second {
-  background-color: #89A6A0;
-}
-
-.third {
-  background-color: #CE996F;
-}
-
-.fourth {
-  background-color: #cb5e63;
-}
-
-.fifth {
-  background-color: #89A6A0;
 }

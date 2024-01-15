@@ -14,12 +14,10 @@
         <span>0</span>
     </div>
     <div class="container">
-
     </div>
 
     <script>
         let container = document.querySelector('.container');
-        
 
         //先製作4x4方塊
         let level = 2;
@@ -30,7 +28,7 @@
 
         //產生亂數，最大到3
         let num = Math.random();
-        num = Math.floor(num * 3) + 1;
+        num = Math.floor(num * 3);
         let random = num;
 
         // 把答案的css加入亂數的box中
@@ -39,8 +37,10 @@
 
         //找尋答案方塊
         let answer = document.querySelector('.answer');
+        let opacity = 0.3;
+        answer.style.opacity = opacity;
 
-        function randomGame(color, opacity) {
+        function creatBox() {
             container.innerHTML = '';
 
             for (let i = 0; i < level * level; i++) {
@@ -49,11 +49,18 @@
 
             boxAll = document.querySelectorAll('.box');
 
-            //調整方塊寬高
+            //隨機挑選rgb顏色
+            let radomColor1 = Math.floor(Math.random() * 255) - 90;
+            let radomColor2 = Math.floor(Math.random() * 255) - 40;
+            let radomColor3 = Math.floor(Math.random() * 255) - 70;
+            let color = `rgb(${radomColor1},${radomColor2},${radomColor3})`;
+
+
+            //調整方塊寬高顏色
             for (let i = 0; i < level * level; i++) {
                 boxAll[i].style.width = 100 / level + '%';
                 boxAll[i].style.height = 100 / level + '%';
-                boxAll[i].classList.add(color);
+                boxAll[i].style.backgroundColor = color;
             }
 
             //重新計算現在level的所需最大亂數 level的平方=全部方塊數
@@ -62,14 +69,16 @@
             let random = num;
 
             //重新加入answer方塊
-            boxAll[random].classList.add(opacity);
+            boxAll[random].classList.add('answer');
+            let answer = document.querySelector('.answer');
+
+
+            opacity += 0.05;
+
             level += 1;
 
-            //
-            
-
-            //回傳新的level
-            return level;
+            //回傳新的level、answer、opacity
+            return [level, answer, opacity]
         }
 
         function score() {
@@ -77,57 +86,40 @@
             let score = Number(scoreText.innerText);
 
             score += 1;
-            console.log(`我是score${score}`);
             scoreText.innerText = score;
         }
 
 
-
-        //第二關3x3
-        answer.addEventListener('click', function () {
+        function newLevel() {
             alert('恭喜過關');
             score();
-            randomGame('second', 'answer-2');
 
-            level = randomGame('second', 'answer-2') - 1;
-            let answer = document.querySelector('.answer-2');
-            
+            let result = creatBox();
+            level = result[0];
+            answer = result[1];
+            answer.style.opacity = result[2];
+            console.log(`下一個等級為${result[0]}x${result[0]}`);
+            console.log(`現在等級的透明度為${result[2]}`);
+        }
 
 
+        //第二關開始
+        answer.addEventListener('click', function () {
+            creatBox();
 
-            //第三關4x4
-            answer.addEventListener('click', function () {
-                alert('恭喜過關');
-                score();
-                randomGame('third', 'answer-3');
+            //事件委託，改成監聽父容器裡包含.answer的方塊
+            container.addEventListener('click', function (event) {
+                let opacityNow = Number(answer.style.opacity);
 
-                level = randomGame('third', 'answer-3') - 1;
-                let answer = document.querySelector('.answer-3');
+                if (event.target.classList.contains('answer') && opacityNow < 0.9) {
+                    newLevel();
+                } else {
+                    alert('這是最後一關，你贏了!')
+                    return;
+                }
 
-                //第五關5x5
-                answer.addEventListener('click', function () {
-                    alert('恭喜過關');
-                    score();
-                    randomGame('fourth', 'answer-4');
-
-                    level = randomGame('fourth', 'answer-4') - 1;
-                    let answer = document.querySelector('.answer-4');
-
-                    answer.addEventListener('click', function () {
-                        alert('恭喜過關');
-                        score();
-                        randomGame('fifth', 'answer-5');
-
-                        level = randomGame('fifth', 'answer-5') - 1;
-                        let answer = document.querySelector('.answer-5');
-
-                        answer.addEventListener('click', function () {
-                            alert("沒有ㄌ");
-                        })
-                    })
-
-                })
             })
+
         })
 
     </script>
