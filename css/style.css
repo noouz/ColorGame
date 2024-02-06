@@ -140,10 +140,10 @@ body {
     width: 100%;
     justify-content: center;
     left: 0;
-    top: 80px;
+    top: 55px;
   }
   .section-game .stopping {
-    transform: translateY(-212px);
+    transform: translateY(-230px);
   }
 }
 @media screen and (max-width: 560px) {
@@ -155,7 +155,7 @@ body {
     height: 553px;
   }
   .section-game .btn-list {
-    top: 85px;
+    top: 65px;
   }
   .section-game .btn-list button {
     font-size: 1rem;
