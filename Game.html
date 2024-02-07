@@ -28,7 +28,7 @@
 
         <div class="btn-list">
             <button class="stop button">暫停</button>
-            <button class="continue button">繼續遊戲</button>
+            <button class="continue button hidden">繼續遊戲</button>
             <button class="restart button">重新開始</button>
         </div>
         <div class="stopping hidden"><span>暫停中...</span></div>
@@ -41,7 +41,6 @@
         let sectionGame = document.querySelector('.section-game');
         let container = document.querySelector('.container');
         let stopping = document.querySelector('.stopping');
-        let stoppingText = document.querySelector('.stopping span');
         let timeText = document.querySelector('.time span:nth-child(2)');
         let startBtn = document.querySelector('button.start-btn');
         let stopBtn = document.querySelector('button.stop');
@@ -51,7 +50,6 @@
         let opacity = 0.2;
         let counter = 20;
         let level = 2;
-        let stopIsRunning = false;
 
         function creatBox() {
             container.innerHTML = '';
@@ -86,27 +84,44 @@
             return [level, answer, opacity]
         }
 
-        function score() {
+        function newLevel() {
             let scoreText = document.querySelector('.score span:nth-child(2)');
             let score = Number(scoreText.innerText);
 
             score += 1;
             scoreText.innerText = score;
-        }
-
-        function newLevel() {
-            alert('恭喜過關');
-            score();
 
             let result = creatBox();
             level = result[0];
             answer = result[1];
             answer.style.opacity = result[2];
-            console.log(`下一個等級為${result[0]}x${result[0]}`);
-            console.log(`現在等級的透明度為${result[2]}`);
+            // console.log(`下一個等級為${result[0]}x${result[0]}`);
+            // console.log(`現在等級的透明度為${result[2]}`);
         }
 
         function startGame() {
+            // 獲得新秒數並顯示
+            function counterTimer() {
+                scoreText = document.querySelector('.score span:nth-child(2)');
+                if (counter < 0) {
+                    stopBtn.classList.add('hidden');
+                    continueBtn.classList.add('hidden');
+                    stopping.classList.remove('hidden');
+                    stopping.innerHTML = `<span>時間到!請重新開始遊戲</span><span>你的得分：${scoreText.innerText}分</span>`
+                    return;
+                } else {
+                    timeText.innerHTML = counter--;
+                    if (counter < 10) {
+                        timeText.classList.add('red')
+                    }
+                }
+            }
+
+            // 停止計時
+            function counterStopFunction() {
+                clearInterval(counterInterval);
+            }
+
             startBtn.addEventListener('click', () => {
                 setInterval(() => { sectionStart.classList.add('hidden') }, 500);
                 counterInterval = setInterval(counterTimer, 1000);
@@ -115,21 +130,19 @@
             stopBtn.addEventListener('click', () => {
                 counterStopFunction();
                 stopping.classList.remove('hidden');
+                stopBtn.classList.add('hidden');
+                continueBtn.classList.remove('hidden');
             });
 
             continueBtn.addEventListener('click', (e) => {
-                if(stopIsRunning){
                     counterInterval = setInterval(counterTimer, 1000);
                     stopping.classList.add('hidden');
-                    stopIsRunning = false;
-                }else{
-                    e.preventDefault();
-                }
+                    continueBtn.classList.add('hidden');
+                    stopBtn.classList.remove('hidden');
             });
 
             restartBtn.addEventListener('click', () => {
                 setInterval(() => { location.reload() }, 500);
-                
             });
 
             //第二關開始
@@ -142,8 +155,8 @@
                 } else if (!event.target.classList.contains('answer')) {
                     event.preventDefault();
                 } else {
-                   alert('這是最後一關，你贏了!');
-                   return;
+                    alert('這是最後一關，你贏了!');
+                    return;
                 }
             })
 
@@ -152,25 +165,7 @@
         creatBox();
         startGame();
 
-        // 獲得新秒數並顯示
-        function counterTimer() {
-            if (counter < 0) {
-                stopping.classList.remove('hidden');
-                stoppingText.innerText = '時間到!請重新開始遊戲';
-                return;
-            } else {
-                timeText.innerHTML = counter--;
-                if(counter < 10){
-                    timeText.classList.add('red')
-                }
-            }
-        }
 
-        // 停止計時
-        function counterStopFunction() {
-            stopIsRunning = true;
-            clearInterval(counterInterval);
-        }
     </script>
 
 </body>
