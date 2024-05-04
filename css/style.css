@@ -11,6 +11,8 @@ body {
   justify-content: space-evenly;
   color: rgb(70, 58, 58);
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  overflow-x: hidden;
+  position: relative;
 }
 
 .button {
@@ -29,7 +31,7 @@ body {
 .section-start {
   position: absolute;
   width: 100vw;
-  height: 100vh;
+  height: 100%;
   inset: 0;
   background-color: rgba(125, 122, 120, 0.786);
   backdrop-filter: blur(4px);
@@ -68,6 +70,27 @@ body {
   font-weight: bold;
 }
 
+.end {
+  position: absolute;
+  width: 100vw;
+  height: 100vh;
+  inset: 0;
+  background-color: rgba(125, 122, 120, 0.786);
+  backdrop-filter: blur(4px);
+  z-index: 5;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 1;
+  display: flex;
+  flex-direction: column;
+  row-gap: 20px;
+}
+.end span {
+  font-size: 2rem;
+  font-weight: bold;
+}
+
 .section-game .score-bar {
   height: 80px;
   display: flex;
@@ -75,6 +98,8 @@ body {
   padding: 10px;
 }
 .section-game .score-bar .score {
+  display: flex;
+  align-items: center;
   font-size: 2rem;
   font-weight: 700;
 }
@@ -82,6 +107,7 @@ body {
   font-size: 2rem;
   font-weight: 700;
   display: flex;
+  align-items: center;
 }
 .section-game .btn-list {
   margin-top: 3%;
@@ -125,6 +151,10 @@ body {
 
 .tsfY {
   transform: translateY(75px);
+}
+
+.z-10 {
+  z-index: 10;
 }
 
 @media screen and (max-width: 940px) {

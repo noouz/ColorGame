@@ -17,6 +17,11 @@
         <button class="continue button">繼續遊戲</button>
         <button class="restart button">重新開始</button>
     </div>
+    <div class="end hidden">
+        <span>時間到!請重新開始遊戲</span>
+        <span class="endSpan"></span>
+        <button class="end-restart button">重新開始</button>
+    </div>
     <section class="section-game">
         <div class="score-bar">
             <div class="score">
@@ -32,8 +37,7 @@
 
         <div class="btn-list">
             <button class="stop button">暫停</button>
-            <!-- <button class="continue button hidden">繼續遊戲</button> -->
-            <button class="restart button">重新開始</button>
+            <button class="btn-restart button">重新開始</button>
         </div>
         <div class="container">
         </div>
@@ -44,11 +48,15 @@
         let sectionGame = document.querySelector('.section-game');
         let container = document.querySelector('.container');
         let stopping = document.querySelector('.stopping');
+        let end = document.querySelector('.end');
+        let endSpan = document.querySelector('.endSpan');
         let timeText = document.querySelector('.time span:nth-child(2)');
         let startBtn = document.querySelector('button.start-btn');
         let stopBtn = document.querySelector('button.stop');
         let continueBtn = document.querySelector('button.continue');
         let restartBtn = document.querySelector('button.restart');
+        let btnRestartBtn = document.querySelector('button.btn-restart');
+        let endRestartBtn = document.querySelector('button.end-restart');
         let counterInterval = '';
         let opacity = 0.2;
         let counter = 20;
@@ -109,8 +117,8 @@
                 if (counter < 0) {
                     stopBtn.classList.add('hidden');
                     continueBtn.classList.add('hidden');
-                    stopping.classList.remove('hidden');
-                    stopping.innerHTML = `<span>時間到!請重新開始遊戲</span><span>你的得分：${scoreText.innerText}分</span>`
+                    end.classList.remove('hidden');
+                    endSpan.innerText = `你的得分：${scoreText.innerText}分`
                     return;
                 } else {
                     timeText.innerHTML = counter--;
@@ -147,6 +155,13 @@
             restartBtn.addEventListener('click', () => {
                 setInterval(() => { location.reload() }, 500);
             });
+            btnRestartBtn.addEventListener('click', () => {
+                setInterval(() => { location.reload() }, 500);
+            });
+            endRestartBtn.addEventListener('click', () => {
+                setInterval(() => { location.reload() }, 500);
+            });
+
 
             //第二關開始
             container.addEventListener('click', function (event) {
