@@ -9,7 +9,6 @@ body {
   height: 100vh;
   display: flex;
   justify-content: space-evenly;
-  align-items: center;
   color: rgb(70, 58, 58);
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }
@@ -39,7 +38,6 @@ body {
   align-items: center;
   justify-content: center;
   opacity: 1;
-  transition: all 1s ease-in-out;
 }
 .section-start button {
   padding: 15px 30px;
@@ -63,6 +61,7 @@ body {
   opacity: 1;
   display: flex;
   flex-direction: column;
+  row-gap: 20px;
 }
 .stopping span {
   font-size: 2rem;
@@ -70,8 +69,6 @@ body {
 }
 
 .section-game .score-bar {
-  position: absolute;
-  inset: 0;
   height: 80px;
   display: flex;
   justify-content: space-between;
@@ -87,13 +84,12 @@ body {
   display: flex;
 }
 .section-game .btn-list {
-  position: absolute;
-  left: 20px;
-  top: 35%;
+  margin-top: 3%;
+  margin-bottom: 8%;
   display: flex;
-  flex-direction: column;
-  row-gap: 20px;
-  z-index: 5;
+  justify-content: center;
+  column-gap: 20px;
+  z-index: 9;
 }
 .section-game .container {
   width: 550px;
@@ -185,11 +181,6 @@ body {
   }
   .section-game .score-bar .score span, .section-game .score-bar .time span {
     word-break: keep-all;
-  }
-  .section-game .stopping {
-    width: 100%;
-    height: 100%;
-    inset: 0;
   }
   .section-game .stopping span {
     font-size: 1.7rem;
